@@ -1,0 +1,23 @@
+formatter: markdown table
+output:
+  file: "./README.md"
+  mode: replace
+  template: |-
+    # terraform-aws-lambda
+
+    Terraform module to create AWS Lambda based on docker image.
+
+    {{ .Content }}
+
+sections:
+  hide-all: true
+  show:
+    - header
+    - inputs
+    - outputs
+    - providers
+    - resources
+
+sort:
+  enabled: true
+  by: required
