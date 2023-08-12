@@ -1,6 +1,6 @@
 resource "aws_iam_role" "this" {
   name               = var.name
-  assume_role_policy = data.aws_iam_policy_document.AssumeRole
+  assume_role_policy = data.aws_iam_policy_document.AssumeRole.json
   tags               = local.tags
 }
 
