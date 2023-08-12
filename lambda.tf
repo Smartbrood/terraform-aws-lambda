@@ -18,7 +18,7 @@ resource "aws_lambda_alias" "this" {
 }
 
 resource "aws_lambda_provisioned_concurrency_config" "this" {
-  for_each                          = var.provisioned_concurrent_executions == 0 ? [] : [true]
+  for_each                          = var.provisioned_concurrent_executions == 0 ? toset([]) : toset([aws_lambda_alias.this.name])
   function_name                     = aws_lambda_alias.this.function_name
   qualifier                         = aws_lambda_alias.this.name
   provisioned_concurrent_executions = var.provisioned_concurrent_executions
