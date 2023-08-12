@@ -24,7 +24,7 @@ variable "timeout" {
 variable "architectures" {
   description = "Instruction set architecture for your Lambda function"
   type        = list(string)
-  default     = ["x8664"]
+  default     = ["x86_64"]
 }
 
 variable "reservedConcurrentExecutions" {
