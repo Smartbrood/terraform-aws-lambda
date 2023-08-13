@@ -11,7 +11,7 @@ resource "aws_lambda_function" "this" {
   tags          = local.tags
 
   dynamic "environment" {
-    for_each = length(keys(var.environment_variables)) == 0 ? toset([]) : toset([true])
+    for_each = length(keys(var.environment)) == 0 ? toset([]) : toset([true])
     content {
       variables = var.environment
     }
