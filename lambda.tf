@@ -3,11 +3,27 @@ resource "aws_lambda_function" "this" {
   role          = aws_iam_role.this.arn
   description   = local.description
   memory_size   = var.memory_size
+  timeout       = var.timeout
   package_type  = var.package_type
   image_uri     = local.image_uri
   architectures = var.architectures
   publish       = var.publish
   tags          = local.tags
+
+  dynamic "environment" {
+    for_each = length(keys(var.environment_variables)) == 0 ? toset([]) : toset([true])
+    content {
+      variables = var.environment
+    }
+  }
+
+  ephemeral_storage {
+    size = var.ephemeral_storage
+  }
+
+  depends_on = [
+    aws_cloudwatch_log_group.this
+  ]
 }
 
 resource "aws_lambda_alias" "this" {
