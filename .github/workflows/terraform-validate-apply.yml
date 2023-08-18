@@ -52,9 +52,9 @@ jobs:
         export TF_VAR_architecture=${{ matrix.architecture }}
     - name: Apply
       run: terraform apply -input=false -auto-approve
-    - name: Apply 2
-      run: terraform apply -input=false -auto-approve
+    - name: Check Apply
+      run: terraform plan -input=false -detailed-exitcode
     - name: Destroy
       run: terraform destroy -input=false -auto-approve
-    - name: Destroy 2
-      run: terraform destroy -input=false -auto-approve
+    - name: Check Destroy
+      run: terraform plan -destroy -input=false -detailed-exitcode
