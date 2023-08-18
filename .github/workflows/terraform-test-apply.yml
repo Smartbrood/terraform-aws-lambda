@@ -1,0 +1,49 @@
+name: Terraform test apply
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: "test"
+  AWS_ACCOUNT_ID: 904317604667
+  AWS_REGION: "eu-west-1"
+
+jobs:
+  terraform-test-apply:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: tests
+    strategy:
+      matrix:
+        timeout: [3, 120]
+        architecture: [x86_64, arm64]
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/my-github-actions-role
+        aws-region: ${{ env.AWS_REGION }}
+        role-session-name: GitHubActions
+    - name: Terraform init
+      run: terraform init -input=false
+    - name: Set Terraform variables
+      run: |
+        export TF_VAR_timeout=${{ matrix.timeout }}
+        export TF_VAR_architecture=${{ matrix.architecture }}
+    - name: Terraform apply
+      run: terraform apply -input=false -auto-approve
+    - name: Terraform apply 2
+      run: terraform apply -input=false -auto-approve
+    - name: Terraform destroy
+      run: terraform destroy -input=false -auto-approve
+    - name: Terraform destroy 2
+      run: terraform apply -input=false -auto-approve
