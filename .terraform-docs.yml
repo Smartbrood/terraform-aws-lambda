@@ -3,6 +3,7 @@ output:
   file: "./README.md"
   mode: replace
   template: |-
+    [![Terraform](https://github.com/Smartbrood/terraform-aws-lambda/actions/workflows/terraform-validate-apply.yml/badge.svg)](https://github.com/Smartbrood/terraform-aws-lambda/actions/workflows/terraform-validate-apply.yml)
     # terraform-aws-lambda
 
     Terraform module to create AWS Lambda based on docker image.

@@ -1,3 +1,4 @@
+[![Terraform](https://github.com/Smartbrood/terraform-aws-lambda/actions/workflows/terraform-validate-apply.yml/badge.svg)](https://github.com/Smartbrood/terraform-aws-lambda/actions/workflows/terraform-validate-apply.yml)
 # terraform-aws-lambda
 
 Terraform module to create AWS Lambda based on docker image.
@@ -27,7 +28,7 @@ Terraform module to create AWS Lambda based on docker image.
 | <a name="input_image_tag"></a> [image\_tag](#input\_image\_tag) | Tag of Docker Image in ECR repository | `string` | n/a | yes |
 | <a name="input_name"></a> [name](#input\_name) | Name of Lambda function | `string` | n/a | yes |
 | <a name="input_alias"></a> [alias](#input\_alias) | Name of Alias for Lambda function | `string` | `"active"` | no |
-| <a name="input_architectures"></a> [architectures](#input\_architectures) | Instruction set architecture for your Lambda function | `list(string)` | <pre>[<br>  "x8664"<br>]</pre> | no |
+| <a name="input_architectures"></a> [architectures](#input\_architectures) | Instruction set architecture for your Lambda function | `list(string)` | <pre>[<br>  "x86_64"<br>]</pre> | no |
 | <a name="input_cloudwatch_log_group_retention_in_days"></a> [cloudwatch\_log\_group\_retention\_in\_days](#input\_cloudwatch\_log\_group\_retention\_in\_days) | Specifies the number of days you want to retain log events in the specified log group | `number` | `7` | no |
 | <a name="input_description"></a> [description](#input\_description) | Description for Lambda function | `string` | `null` | no |
 | <a name="input_environment"></a> [environment](#input\_environment) | Map of environment variables that are accessible from the function code during execution | `map(string)` | `{}` | no |
