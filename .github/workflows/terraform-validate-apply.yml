@@ -1,0 +1,60 @@
+name: Terraform
+
+on:
+  pull_request:
+    branches:
+      - main
+
+env:
+  IMAGE_NAME: "test"
+  AWS_ACCOUNT_ID: 904317604667
+  AWS_REGION: "eu-west-1"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Terraform validate
+      run: |
+        make validate
+  apply-and-destroy:
+    runs-on: ubuntu-latest
+    needs: validate
+    defaults:
+      run:
+        working-directory: tests
+    strategy:
+      max-parallel: 1
+      matrix:
+        timeout: [3, 120]
+        architecture: [x86_64, arm64]
+    permissions:
+      id-token: write
+      contents: read
+      packages: write
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/my-github-actions-role
+        aws-region: ${{ env.AWS_REGION }}
+        role-session-name: GitHubActions
+    - name: Version
+      run: terraform version
+    - name: Init
+      run: terraform init -input=false
+    - name: Set variables
+      run: |
+        export TF_VAR_timeout=${{ matrix.timeout }}
+        export TF_VAR_architecture=${{ matrix.architecture }}
+    - name: Apply
+      run: terraform apply -input=false -auto-approve
+    - name: Check Apply
+      run: terraform plan -input=false -detailed-exitcode
+    - name: Destroy
+      run: terraform destroy -input=false -auto-approve
+    - name: Check Destroy
+      run: terraform plan -destroy -input=false -detailed-exitcode
