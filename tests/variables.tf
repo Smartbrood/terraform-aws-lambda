@@ -1,3 +1,13 @@
+variable "aws_ecr_repository_name" {
+  type = string
+  default = "test"
+}
+
+variable "image_tag" {
+  type = string
+  default = "latest"
+}
+
 variable "memory_size" {
   type    = number
   default = 128
