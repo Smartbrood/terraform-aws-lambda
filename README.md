@@ -3,6 +3,20 @@
 
 Terraform module to create AWS Lambda based on docker image.
 
+## Usage
+```
+module "lambda" {
+  source                  = "Smartbrood/lambda/aws"
+  version                 = "1.0.0"
+  name                    = "my-lambda"
+  aws_ecr_repository_name = "my-ecr-repo"
+  image_tag               = "latest"
+  memory_size             = "128"
+  timeout                 = "60"
+  architectures           = ["x86_64"]
+}
+```
+
 ## Providers
 
 | Name | Version |
@@ -37,7 +51,7 @@ Terraform module to create AWS Lambda based on docker image.
 | <a name="input_package_type"></a> [package\_type](#input\_package\_type) | Package Type for Lambda | `string` | `"Image"` | no |
 | <a name="input_provisioned_concurrent_executions"></a> [provisioned\_concurrent\_executions](#input\_provisioned\_concurrent\_executions) | Manages a Lambda Provisioned Concurrency Configuration. Amount of capacity to allocate | `number` | `0` | no |
 | <a name="input_publish"></a> [publish](#input\_publish) | Whether to publish new version of Lambda | `bool` | `true` | no |
-| <a name="input_reservedConcurrentExecutions"></a> [reservedConcurrentExecutions](#input\_reservedConcurrentExecutions) | Amount of reserved concurrent executions for this lambda function | `number` | `-1` | no |
+| <a name="input_reserved_concurrent_executions"></a> [reserved\_concurrent\_executions](#input\_reserved\_concurrent\_executions) | Amount of reserved concurrent executions for this lambda function | `number` | `-1` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | AWS Tags | `map(string)` | `{}` | no |
 | <a name="input_timeout"></a> [timeout](#input\_timeout) | Amount of time your Lambda Function has to run in seconds | `number` | `60` | no |
 
@@ -47,4 +61,11 @@ Terraform module to create AWS Lambda based on docker image.
 |------|-------------|
 | <a name="output_alias_arn"></a> [alias\_arn](#output\_alias\_arn) | n/a |
 | <a name="output_alias_name"></a> [alias\_name](#output\_alias\_name) | n/a |
+| <a name="output_architectures"></a> [architectures](#output\_architectures) | n/a |
 | <a name="output_arn"></a> [arn](#output\_arn) | n/a |
+| <a name="output_cloudwatch_log_group_retention_in_days"></a> [cloudwatch\_log\_group\_retention\_in\_days](#output\_cloudwatch\_log\_group\_retention\_in\_days) | n/a |
+| <a name="output_ephemeral_storage"></a> [ephemeral\_storage](#output\_ephemeral\_storage) | n/a |
+| <a name="output_image_uri"></a> [image\_uri](#output\_image\_uri) | n/a |
+| <a name="output_memory_size"></a> [memory\_size](#output\_memory\_size) | n/a |
+| <a name="output_reserved_concurrent_executions"></a> [reserved\_concurrent\_executions](#output\_reserved\_concurrent\_executions) | n/a |
+| <a name="output_timeout"></a> [timeout](#output\_timeout) | n/a |
