@@ -27,8 +27,8 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        timeout: [3, 120]
-        architecture: [x86_64, arm64]
+        timeout: [1, 900]
+        memory_size: [128, 10240]
     permissions:
       id-token: write
       contents: read
@@ -49,11 +49,13 @@ jobs:
     - name: Set variables
       run: |
         export TF_VAR_timeout=${{ matrix.timeout }}
-        export TF_VAR_architecture=${{ matrix.architecture }}
+        export TF_VAR_memory_size=${{ matrix.memory_size }}
     - name: Apply
       run: terraform apply -input=false -auto-approve
     - name: Check Apply
       run: terraform plan -input=false -detailed-exitcode
+    - name: Output
+      run: terraform output -json
     - name: Destroy
       run: terraform destroy -input=false -auto-approve
     - name: Check Destroy
