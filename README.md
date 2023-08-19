@@ -7,7 +7,7 @@ Terraform module to create AWS Lambda based on docker image.
 ```
 module "lambda" {
   source                  = "Smartbrood/lambda/aws"
-  version                 = "1.0.0"
+  version                 = "1.0.1"
   name                    = "my-lambda"
   aws_ecr_repository_name = "my-ecr-repo"
   image_tag               = "latest"
