@@ -13,21 +13,36 @@ variable "memory_size" {
   description = "Amount of memory in MB your Lambda Function can use at runtime."
   type        = number
   default     = 128
+
+  validation {
+    condition     = var.memory_size >= 128 && var.memory_size <= 10240
+    error_message = "Valid values are from 128 to 10240"
+  }
 }
 
 variable "timeout" {
   description = "Amount of time your Lambda Function has to run in seconds"
   type        = number
   default     = 60
+
+  validation {
+    condition     = var.timeout > 0 && var.timeout <= 900
+    error_message = "Valid values are from 0 to 900"
+  }
 }
 
 variable "architectures" {
   description = "Instruction set architecture for your Lambda function"
   type        = list(string)
   default     = ["x86_64"]
+
+  validation {
+    condition     = length(var.architectures) == 1 && contains(["x86_64", ["arm64"]], var.architectures[0])
+    error_message = "Valid values are [\"x86_64\"] and [\"arm64\"]"
+  }
 }
 
-variable "reservedConcurrentExecutions" {
+variable "reserved_concurrent_executions" {
   description = "Amount of reserved concurrent executions for this lambda function"
   type        = number
   default     = -1

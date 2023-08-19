@@ -4,6 +4,7 @@ resource "aws_lambda_function" "this" {
   description   = local.description
   memory_size   = var.memory_size
   timeout       = var.timeout
+  reserved_concurrent_executions = var.reserved_concurrent_executions
   package_type  = var.package_type
   image_uri     = local.image_uri
   architectures = var.architectures
