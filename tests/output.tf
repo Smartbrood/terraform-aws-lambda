@@ -4,11 +4,11 @@ output "arn" {
 }
 
 output "alias_arn" {
-  value = module.alias_arn
+  value = module.this.alias_arn
 }
 
 output "alias_name" {
-  value = module.alias_name
+  value = module.this.alias_name
 }
 
 output "memory_size" {
