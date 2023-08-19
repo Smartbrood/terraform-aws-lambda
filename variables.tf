@@ -15,7 +15,7 @@ variable "memory_size" {
   default     = 128
 
   validation {
-    condition     = var.timeout >= 128 && var.timeout <= 10240
+    condition     = var.memory_size >= 128 && var.memory_size <= 10240
     error_message = "Valid values are from 128 to 10240"
   }
 }
