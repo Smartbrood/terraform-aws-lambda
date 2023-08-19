@@ -53,7 +53,7 @@ jobs:
       env:
         TF_WORKSPACE: default
     - name: Workspace
-      run: terraform workspace new $TF_WORKSPACE
+      run: terraform workspace new $TF_WORKSPACE || exit 0
     - name: Apply
       run: terraform apply -input=false -auto-approve
     - name: Check Apply
