@@ -29,6 +29,9 @@ jobs:
       matrix:
         timeout: [1, 900]
         memory_size: [128, 10240]
+    env:
+      TF_VAR_timeout: ${{ matrix.timeout }}
+      TF_VAR_memory_size: ${{ matrix.memory_size }}
     permissions:
       id-token: write
       contents: read
@@ -46,10 +49,6 @@ jobs:
       run: terraform version
     - name: Init
       run: terraform init -input=false
-    - name: Set variables
-      run: |
-        export TF_VAR_timeout=${{ matrix.timeout }}
-        export TF_VAR_memory_size=${{ matrix.memory_size }}
     - name: Apply
       run: terraform apply -input=false -auto-approve
     - name: Check Apply

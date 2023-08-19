@@ -1,10 +1,10 @@
 variable "aws_ecr_repository_name" {
-  type = string
+  type    = string
   default = "test"
 }
 
 variable "image_tag" {
-  type = string
+  type    = string
   default = "latest"
 }
 
