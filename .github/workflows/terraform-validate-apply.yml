@@ -48,10 +48,12 @@ jobs:
         role-session-name: GitHubActions
     - name: Version
       run: terraform version
-    - name: Workspace
-      run: terraform workspace new $TF_WORKSPACE
     - name: Init
       run: terraform init -input=false
+      env:
+        TF_WORKSPACE: default
+    - name: Workspace
+      run: terraform workspace new $TF_WORKSPACE
     - name: Apply
       run: terraform apply -input=false -auto-approve
     - name: Check Apply
