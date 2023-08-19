@@ -1,15 +1,15 @@
 resource "aws_lambda_function" "this" {
-  function_name = var.name
-  role          = aws_iam_role.this.arn
-  description   = local.description
-  memory_size   = var.memory_size
-  timeout       = var.timeout
+  function_name                  = var.name
+  role                           = aws_iam_role.this.arn
+  description                    = local.description
+  memory_size                    = var.memory_size
+  timeout                        = var.timeout
   reserved_concurrent_executions = var.reserved_concurrent_executions
-  package_type  = var.package_type
-  image_uri     = local.image_uri
-  architectures = var.architectures
-  publish       = var.publish
-  tags          = local.tags
+  package_type                   = var.package_type
+  image_uri                      = local.image_uri
+  architectures                  = var.architectures
+  publish                        = var.publish
+  tags                           = local.tags
 
   dynamic "environment" {
     for_each = length(keys(var.environment)) == 0 ? toset([]) : toset([true])
